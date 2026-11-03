@@ -1,508 +1,182 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b12">
-<title>SmartWallet | Premium Earnings</title>
-
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+<meta name="theme-color" content="#071d45">
+<title>SmartWallet | Earn Smart</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root{--navy:#071d45;--blue:#0869df;--cyan:#25b8f2;--pale:#eaf6ff;--gold:#f4d58a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--navy);background:linear-gradient(145deg,#f7fcff,#e3f3ff 55%,#f8fbff);overflow-x:hidden}
+a{text-decoration:none}
+.bubbles{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.bubble{position:absolute;bottom:-90px;border:1px solid #1689ed55;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,#80cfff55,#1689ed0c);box-shadow:inset -5px -5px 15px #1689ed18,0 0 18px #1689ed14;animation:rise linear infinite}
+.bubble:nth-child(1){left:5%;width:34px;height:34px;animation-duration:15s}
+.bubble:nth-child(2){left:18%;width:66px;height:66px;animation-duration:21s;animation-delay:2s}
+.bubble:nth-child(3){left:38%;width:23px;height:23px;animation-duration:12s;animation-delay:4s}
+.bubble:nth-child(4){left:57%;width:48px;height:48px;animation-duration:18s;animation-delay:1s}
+.bubble:nth-child(5){left:77%;width:72px;height:72px;animation-duration:23s;animation-delay:3s}
+.bubble:nth-child(6){left:91%;width:31px;height:31px;animation-duration:14s;animation-delay:5s}
+@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.65}85%{opacity:.45}100%{transform:translateY(-115vh) translateX(24px);opacity:0}}
+.wrap{width:min(92%,980px);margin:auto;position:relative;z-index:1}
+header{display:flex;align-items:center;justify-content:space-between;padding:17px 0;border-bottom:1px solid #c8e4f8}
+.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800;color:#0755ad}
+.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:white;background:linear-gradient(135deg,#0874e9,#063b9a);box-shadow:0 6px 16px #0878ed40;font-size:15px;font-weight:900}
+.join-top{padding:12px 17px;border-radius:30px;color:#0755ad;background:#e4f4ff;border:1px solid #9bcff1;font-size:12px;font-weight:800}
+.hero{display:grid;grid-template-columns:1fr .78fr;gap:30px;align-items:center;padding:42px 0 24px}
+.hero-copy{text-align:left}
+.tag{display:inline-block;padding:9px 15px;border:1px solid #acd8f2;border-radius:30px;background:#e4f5ff;color:#287fb8;font-size:11px;letter-spacing:1.7px;font-weight:800}
+h1{font-size:clamp(38px,6vw,61px);line-height:1.08;letter-spacing:-2px;margin:21px 0 15px;color:#0a2852}
+h1 span{background:linear-gradient(90deg,#075bd0,#1aa8ed);background-clip:text;-webkit-background-clip:text;color:transparent}
+.desc{font-size:15px;line-height:1.8;color:#6a8098;max-width:520px}
+.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 23px;border-radius:40px;font-size:13px;font-weight:900;transition:.25s}
+.btn:hover{transform:translateY(-3px)}
+.register{color:#fff;background:linear-gradient(100deg,#075bd0,#22a9ef);box-shadow:0 10px 28px #0878ed45;animation:glow 2s ease-in-out infinite alternate}
+.telegram{color:#0755ad;background:#fff;border:1px solid #a6cfe9;box-shadow:0 5px 16px #0a4b8610}
+@keyframes glow{to{box-shadow:0 0 30px #1685ef85}}
+.photo-card{position:relative;padding:9px;border-radius:25px;background:linear-gradient(145deg,#fff,#cceaff);border:1px solid #a7d7f6;box-shadow:0 18px 42px #0755ad22;transform:rotate(1deg)}
+.photo-card img{display:block;width:100%;height:auto;border-radius:18px}
+.photo-label{position:absolute;left:18px;right:18px;bottom:18px;padding:12px;border-radius:14px;text-align:center;color:#fff;background:linear-gradient(90deg,#061b40eF,#0755addd);font-size:12px;font-weight:900;letter-spacing:1px}
+.offer{margin:18px 0;padding:28px 18px;text-align:center;border-radius:24px;color:#fff;background:linear-gradient(110deg,#064cb9,#0799ec);box-shadow:0 15px 35px #0878ed35;position:relative;overflow:hidden}
+.offer:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #ffffff35;border-radius:50%;right:-65px;top:-105px}
+.offer small{font-size:10px;letter-spacing:3px;color:#d8efff;font-weight:800}
+.offer h2{font-size:clamp(38px,7vw,58px);margin:10px 0;letter-spacing:-1px}
+.offer p{font-size:12px;letter-spacing:1px;color:#e6f6ff}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.feature{padding:19px 10px;text-align:center;background:#fff;border:1px solid #d5eafa;border-radius:18px;box-shadow:0 7px 22px #0755ad0c}
+.feature strong{display:block;color:#0878d9;font-size:20px;margin-bottom:7px}
+.feature small{font-size:11px;color:#687f98;line-height:1.5}
+.mascot-box{margin:28px 0 22px;padding:19px;border:1px solid #b6dcf4;border-radius:23px;background:linear-gradient(120deg,#e5f5ff,#fff);display:flex;align-items:center;justify-content:center;gap:18px}
+.mascot{width:116px;min-width:116px;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(3deg)}}
+.speech{background:#fff;border:1px solid #b7d9f1;border-radius:18px;padding:16px;box-shadow:0 8px 20px #0755ad12}
+.speech h3{font-size:16px;color:#0755ad}
+.speech p{font-size:12px;color:#71869c;line-height:1.6;margin:6px 0 12px}
+.speech a{display:inline-block;padding:10px 16px;border-radius:25px;color:#fff;background:linear-gradient(90deg,#0864d5,#21a8ec);font-size:11px;font-weight:900}
+.channel{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:20px;border-radius:20px;background:#082653;color:#fff;margin:22px 0}
+.channel h3{font-size:16px}
+.channel p{font-size:11px;color:#c6e6ff;margin-top:5px}
+.channel .btn{background:#fff;color:#0755ad;white-space:nowrap}
+.note{font-size:10px;line-height:1.7;color:#71869c;padding:4px 0 23px}
+footer{position:relative;z-index:1;text-align:center;border-top:1px solid #c8e4f8;padding:20px;color:#748aa1;font-size:11px}
+@media(max-width:700px){
+.hero{grid-template-columns:1fr;padding-top:31px;gap:23px}
+.hero-copy{text-align:center}
+.desc{margin:auto}
+.buttons{justify-content:center}
+.buttons .btn{width:100%}
+.photo-card{max-width:390px;margin:auto}
+.features{grid-template-columns:1fr}
+.mascot-box{gap:10px;padding:13px}
+.mascot{width:92px;min-width:92px}
+.speech{padding:13px}
+.speech h3{font-size:14px}
+.channel{flex-direction:column;text-align:center}
+.join-top{font-size:10px;padding:10px 12px}
 }
-
-:root {
-  --gold: #e8c779;
-  --gold-light: #fff0bd;
-  --bg: #080b12;
-  --panel: #111925;
-  --muted: #a8b0bf;
-}
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: #fff;
-  overflow-x: hidden;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 15% 10%, #29405a55, transparent 40%),
-    radial-gradient(circle at 85% 30%, #c59b4930, transparent 35%);
-}
-
-.container {
-  width: 90%;
-  max-width: 1120px;
-  margin: auto;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 0;
-  border-bottom: 1px solid #ffffff12;
-}
-
-.logo {
-  font: 800 22px Manrope, sans-serif;
-  color: var(--gold-light);
-  letter-spacing: -1px;
-}
-
-.logo span {
-  color: white;
-}
-
-.nav-btn {
-  padding: 12px 22px;
-  border: 1px solid #e8c77955;
-  border-radius: 30px;
-  color: var(--gold-light);
-  text-decoration: none;
-  font-size: 13px;
-}
-
-.hero {
-  min-height: 620px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 35px;
-  padding: 75px 0;
-}
-
-.hero-content {
-  max-width: 570px;
-}
-
-.tag {
-  display: inline-block;
-  padding: 9px 16px;
-  border: 1px solid #e8c77955;
-  border-radius: 30px;
-  color: var(--gold-light);
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-h1 {
-  font: 800 clamp(42px, 6vw, 68px)/1.1 Manrope, sans-serif;
-  letter-spacing: -3px;
-  margin: 27px 0 20px;
-}
-
-h1 span {
-  background: linear-gradient(90deg, #fff0bd, #d3a84f);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.description {
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.9;
-}
-
-.buttons {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 15px 23px;
-  border-radius: 40px;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 700;
-  transition: .3s;
-}
-
-.primary {
-  color: #17130a;
-  background: linear-gradient(110deg, #fff0bd, #c99d4b);
-  box-shadow: 0 10px 35px #cda95830;
-}
-
-.secondary {
-  color: white;
-  border: 1px solid #ffffff35;
-}
-
-.btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 35px #cda95840;
-}
-
-.wallet {
-  width: 370px;
-  padding: 35px;
-  border: 1px solid #e8c77955;
-  border-radius: 25px;
-  background: linear-gradient(145deg, #1b293b, #0b111c);
-  box-shadow: 0 25px 80px #0009;
-  transform: rotate(2deg);
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%,100% { transform: translateY(0) rotate(2deg); }
-  50% { transform: translateY(-13px) rotate(-1deg); }
-}
-
-.wallet small {
-  color: var(--muted);
-  letter-spacing: 2px;
-}
-
-.wallet h2 {
-  color: var(--gold-light);
-  font: 800 37px Manrope;
-  margin: 35px 0;
-}
-
-.wallet p {
-  color: #b9c0ca;
-  font-size: 13px;
-  border-top: 1px solid #ffffff20;
-  padding-top: 20px;
-}
-
-section {
-  padding: 75px 0;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.section-title small {
-  color: var(--gold);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.section-title h2 {
-  font: 800 34px Manrope;
-  margin: 15px 0;
-}
-
-.section-title p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.card {
-  background: linear-gradient(145deg, #182333, #0d141f);
-  border: 1px solid #ffffff15;
-  border-radius: 20px;
-  padding: 30px 24px;
-  transition: .3s;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  border-color: #e8c77988;
-}
-
-.card small {
-  color: var(--muted);
-}
-
-.card h3 {
-  font: 800 30px Manrope;
-  color: var(--gold-light);
-  margin: 20px 0 12px;
-}
-
-.card p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.step {
-  padding: 25px;
-  border-radius: 18px;
-  background: var(--panel);
-  border: 1px solid #ffffff15;
-}
-
-.step h3 {
-  color: var(--gold-light);
-  margin: 18px 0 10px;
-}
-
-.step p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.number {
-  color: var(--gold);
-  font: 800 25px Manrope;
-}
-
-.cta {
-  text-align: center;
-  background: linear-gradient(145deg, #192536, #0d131d);
-  border: 1px solid #e8c77944;
-  border-radius: 25px;
-  padding: 55px 20px;
-}
-
-.cta h2 {
-  font: 800 35px Manrope;
-  margin-bottom: 15px;
-}
-
-.cta p {
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 25px;
-}
-
-.notice {
-  color: #9da8b7;
-  font-size: 11px;
-  line-height: 1.8;
-  padding: 20px;
-  border: 1px solid #ffffff15;
-  border-radius: 12px;
-  margin-top: 25px;
-}
-
-footer {
-  text-align: center;
-  padding: 30px 10px;
-  color: #8993a2;
-  border-top: 1px solid #ffffff15;
-  font-size: 12px;
-}
-
-@media(max-width: 800px) {
-  .hero {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .wallet {
-    width: 100%;
-    max-width: 390px;
-    margin: 25px auto;
-  }
-
-  .cards, .steps {
-    grid-template-columns: 1fr;
-  }
-
-  h1 {
-    font-size: 46px;
-  }
-
-  .section-title h2 {
-    font-size: 27px;
-  }
-
-  .buttons .btn {
-    text-align: center;
-    width: 100%;
-  }
-}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
-</head>
-
-<body>
-
-<header class="container">
-<nav>
-  <div class="logo">SMART<span>WALLET</span></div>
-  <a class="nav-btn"
-     href="https://h5.sw-smart1.top?invite=ZUEAMIT7"
-     target="_blank" rel="noopener">
-     REGISTER ↗
-  </a>
-</nav>
-</header>
-
-<main>
-
-<div class="container hero">
-
-  <div class="hero-content">
-    <div class="tag">✦ Smart Financial Opportunity</div>
-
-    <h1>
-      Make Every<br>
-      Opportunity <span>Count.</span>
-    </h1>
-
-    <p class="description">
-      Discover SmartWallet and explore its commission
-      structure, withdrawal information and community
-      updates — all in one place.
-    </p>
-
-    <div class="buttons">
-      <a class="btn primary"
-         href="https://h5.sw-smart1.top?invite=ZUEAMIT7"
-         target="_blank" rel="noopener">
-         REGISTER NOW ↗
-      </a>
-
-      <a class="btn secondary"
-         href="https://t.me/+sKogWl4A3OBmNTQ1"
-         target="_blank" rel="noopener">
-         TELEGRAM CHANNEL ↗
-      </a>
-    </div>
-  </div>
-
-  <div class="wallet">
-    <small>SMARTWALLET / OVERVIEW</small>
-    <h2>Up to 6%<br>+ ₹8</h2>
-    <p>COMMISSION OPPORTUNITY</p>
-    <br>
-    <p>FULL AMOUNT WITHDRAWAL*</p>
-  </div>
-
+</head><body>
+<div class="bubbles" aria-hidden="true">
+<i class="bubble"></i><i class="bubble"></i>
+<i class="bubble"></i><i class="bubble"></i>
+<i class="bubble"></i><i class="bubble"></i>
 </div>
 
-<section class="container">
-  <div class="section-title">
-    <small>KEY HIGHLIGHTS</small>
-    <h2>SmartWallet Benefits</h2>
-    <p>Explore the promotional details and check the platform's terms.</p>
-  </div>
+<header class="wrap">
+<div class="brand">
+<div class="logo">SW</div>
+<span>SmartWallet</span>
+</div>
+<a class="join-top" href="https://t.me/+sKogWl4A3OBmNTQ1" target="_blank" rel="noopener">JOIN CHANNEL ↗</a>
+</header>
 
-  <div class="cards">
+<main class="wrap">
+<section class="hero">
+<div class="hero-copy">
+<div class="tag">✦ SMARTWALLET OPPORTUNITY</div>
+<h1>Earn Smart.<br><span>Grow Together.</span></h1>
+<p class="desc">Explore SmartWallet's advertised commission information, platform features and community updates.</p>
 
-    <div class="card">
-      <small>COMMISSION</small>
-      <h3>6% + ₹8</h3>
-      <p>Commission advertised up to 6% plus ₹8, subject to applicable rules.</p>
-    </div>
+<div class="buttons">
+<a class="btn register" href="https://h5.sw-smart1.top?invite=ZUEAMIT7" target="_blank" rel="noopener">REGISTER NOW ↗</a>
+<a class="btn telegram" href="https://t.me/+sKogWl4A3OBmNTQ1" target="_blank" rel="noopener">JOIN TELEGRAM ↗</a>
+</div>
+</div>
 
-    <div class="card">
-      <small>DAILY EARNING POTENTIAL</small>
-      <h3>₹2,000</h3>
-      <p>Promotional upper earning figure. Actual earnings are variable and not guaranteed.</p>
-    </div>
-
-    <div class="card">
-      <small>WITHDRAWAL</small>
-      <h3>100%</h3>
-      <p>Full amount withdrawal as advertised, subject to platform terms and conditions.</p>
-    </div>
-
-  </div>
+<div class="photo-card">
+<img src="data:image/webp;base64,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" alt="SmartWallet registration promotional photo">
+<div class="photo-label">SMARTWALLET · REGISTER NOW</div>
+</div>
+</section><section class="offer">
+<small>REGISTER NOW TO EXPLORE</small>
+<h2>UP TO 6% + ₹8</h2>
+<p>ADVERTISED COMMISSION</p>
 </section>
 
-<section class="container">
-  <div class="section-title">
-    <small>GETTING STARTED</small>
-    <h2>How It Works</h2>
-  </div>
-
-  <div class="steps">
-
-    <div class="step">
-      <div class="number">01</div>
-      <h3>Register</h3>
-      <p>Visit the SmartWallet registration page and review the information.</p>
-    </div>
-
-    <div class="step">
-      <div class="number">02</div>
-      <h3>Understand</h3>
-      <p>Read the commission structure, fees, eligibility and withdrawal terms.</p>
-    </div>
-
-    <div class="step">
-      <div class="number">03</div>
-      <h3>Stay Updated</h3>
-      <p>Join the Telegram community for updates and announcements.</p>
-    </div>
-
-  </div>
+<section class="features">
+<div class="feature">
+<strong>₹2,000</strong>
+<small>Advertised daily earning potential*</small>
+</div>
+<div class="feature">
+<strong>Full Amount</strong>
+<small>Withdrawal claim — check platform terms*</small>
+</div>
+<div class="feature">
+<strong>7 × 24</strong>
+<small>Platform operation information*</small>
+</div>
 </section>
 
-<section class="container">
-  <div class="cta">
-    <h2>Start Exploring SmartWallet</h2>
-    <p>
-      Visit the registration page and discover the available
-      platform features and latest information.
-    </p>
+<section class="mascot-box">
+<svg class="mascot" viewBox="0 0 150 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cartoon character pointing to register button">
+<path d="M55 130L45 157H65L73 132M90 130L98 157H118L110 128" fill="#176de0" stroke="#0750b1" stroke-width="3"/>
+<ellipse cx="52" cy="158" rx="18" ry="7" fill="#08285d"/>
+<ellipse cx="108" cy="158" rx="18" ry="7" fill="#08285d"/>
+<path d="M43 77Q30 89 37 135Q72 151 112 134L109 81Q75 62 43 77" fill="#1685ef" stroke="#0750b1" stroke-width="4"/>
+<circle cx="75" cy="48" r="38" fill="#ffce9e" stroke="#a75a35" stroke-width="3"/>
+<path d="M39 42Q34 3 76 8Q117 5 112 48Q100 25 91 28Q69 12 48 36" fill="#29304b" stroke="#151d39" stroke-width="3"/>
+<ellipse cx="61" cy="48" rx="5" ry="8" fill="#182340"/>
+<ellipse cx="88" cy="48" rx="5" ry="8" fill="#182340"/>
+<circle cx="63" cy="46" r="2" fill="white"/>
+<circle cx="90" cy="46" r="2" fill="white"/>
+<path d="M63 65Q76 79 91 64" fill="none" stroke="#9b3c48" stroke-width="4" stroke-linecap="round"/>
+<path d="M40 91Q20 96 18 113L30 120L48 106" fill="none" stroke="#ffce9e" stroke-width="12" stroke-linecap="round"/>
+<path d="M105 91Q121 90 127 74L139 61" fill="none" stroke="#ffce9e" stroke-width="12" stroke-linecap="round"/>
+<path d="M127 74L141 57L144 66" fill="none" stroke="#ffce9e" stroke-width="8" stroke-linecap="round"/>
+<text x="75" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="white">SW</text>
+<path d="M20 29L24 17L28 29L39 33L28 37L24 49L20 37L9 33Z" fill="#ffd44e"/>
+</svg>
 
-    <div class="buttons" style="justify-content:center">
-      <a class="btn primary"
-         href="https://h5.sw-smart1.top?invite=ZUEAMIT7"
-         target="_blank" rel="noopener">
-         REGISTER NOW ↗
-      </a>
-
-      <a class="btn secondary"
-         href="https://t.me/+sKogWl4A3OBmNTQ1"
-         target="_blank" rel="noopener">
-         JOIN TELEGRAM ↗
-      </a>
-    </div>
-  </div>
-
-  <div class="notice">
-    <strong>Important Disclosure:</strong>
-    This is an independent promotional page, not an official
-    verification or endorsement of SmartWallet. Commission
-    rates, daily earning potential and withdrawal claims
-    have not been independently verified. Earnings are
-    not guaranteed and may be zero. Review the platform's
-    legal identity, terms, fees and applicable regulations
-    before participating. Never share OTPs, passwords,
-    UPI PINs or banking credentials.
-  </div>
+<div class="speech">
+<h3>Hey! 👋 Idhar dekho!</h3>
+<p>SmartWallet explore karne ke liye neeche register button par tap karo.</p>
+<a href="https://h5.sw-smart1.top?invite=ZUEAMIT7" target="_blank" rel="noopener">👉 REGISTER NOW</a>
+</div>
 </section>
 
+<section class="channel">
+<div>
+<h3>✈ SmartWallet Telegram Channel</h3>
+<p>Community updates and announcements.</p>
+</div>
+<a class="btn" href="https://t.me/+sKogWl4A3OBmNTQ1" target="_blank" rel="noopener">JOIN NOW ↗</a>
+</section>
+
+<p class="note">
+*Commission, daily earning and withdrawal details are promotional claims and have not been independently verified or guaranteed. Actual earnings may vary or be zero. Withdrawals may be subject to platform terms, fees and eligibility. Please verify the platform before participating. Never share OTPs, passwords or UPI PINs.
+</p>
 </main>
 
 <footer>
-  © <span id="year"></span> SmartWallet Promotion.
-  All Rights Reserved.
+© <span id="year"></span> SmartWallet Promotion
 </footer>
 
 <script>
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+document.getElementById('year').textContent=new Date().getFullYear();
 </script>
 
 </body>
